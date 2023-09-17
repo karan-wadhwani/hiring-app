@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { base_url } from "../constant";
 import Header from "../Components/Header/header";
 import JobCard from "../Components/JobCard/jobCard";
 import Modal from "../Components/Modal/modal";
+import NoDataFound from "../Components/NoDataFound/noDataFound";
 import FormStepOne from "../Components/Forms/formStep1";
 import FormStepTwo from "../Components/Forms/formStep2";
 import Job from "../Types/job";
-import axios from "axios";
-import { base_url } from "../constant";
 
 const Home: React.FC = () => {
   const deafaultJobValue: Job = {
@@ -146,9 +147,17 @@ const Home: React.FC = () => {
       )}
       <Header handleToggle={handleCreateJobClick} toggle={createJobToggle} />
       <div className="w-10/12 m-auto flex flex-wrap mt-12 justify-evenly">
-        {allJobs?.length > 0 && allJobs?.map((obj: Job) => {
-          return (<JobCard job={obj} handleDeleteClick={handleDeleteJob} handleEditClick={handleEditJob}/>)
-        })}
+        {allJobs?.length > 0
+          ? allJobs?.map((obj: Job) => {
+            return (
+              <JobCard
+                job={obj}
+                handleDeleteClick={handleDeleteJob}
+                handleEditClick={handleEditJob}
+              />
+            )
+          })
+          : <NoDataFound handleCreateAJob={handleCreateJobClick}/>}
       </div>
     </div>
   );
