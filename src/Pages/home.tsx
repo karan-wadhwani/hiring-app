@@ -136,7 +136,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="bg-light-grey h-screen relative overflow-y-auto relative">
+    <div className={`bg-light-grey h-screen relative relative ${createJobToggle ? "overflow-y-hidden" : "overflow-y-auto"}`}>
       {createJobToggle && (
         <Modal onModalClose={handleModalClose}>
           {currentStep === "step-1"
